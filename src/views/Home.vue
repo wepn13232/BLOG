@@ -61,6 +61,7 @@
 
 <script>
 	import NavBar from "@/components/NavBar";
+	import commonJs from '../docs/config'
 
 	export default {
 		name: "Home",
@@ -88,7 +89,8 @@
 		},
 		created() {
 			this.getWindowWidth();
-		}
+			commonJs.getFiles();
+		},
 	}
 </script>
 
