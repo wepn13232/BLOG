@@ -3,6 +3,10 @@ const commonFunc = {
 	getFiles() {
 		const files = require.context('./', false, /\.md$/);
 		return files.keys()
+	},
+	getComponent(fileName) {
+		const components = require(`./${fileName}.md`);
+		return components.default || components
 	}
 }
 
