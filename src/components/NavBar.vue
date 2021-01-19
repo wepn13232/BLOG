@@ -60,4 +60,9 @@
 
 <style scoped lang="scss">
 	@import "../assets/css/global";
+	.NavBar{
+		.navbar{
+			box-shadow: 0px 0px 5px 0px rgba(3, 3, 3, 0.15);
+		}
+	}
 </style>
