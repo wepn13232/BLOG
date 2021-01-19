@@ -85,7 +85,10 @@
 				// this.listener = window.addEventListener('resize', function () {
 				//
 				// })
-			}
+			},
+		},
+		mounted() {
+			this.$store.commit('setActive',"0")
 		},
 		created() {
 			this.getWindowWidth();
