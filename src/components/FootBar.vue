@@ -1,7 +1,7 @@
 <template>
 	<!--底部-->
 	<div class="FootBar">
-		Copyright © 2021
+		Copyright © 2021 by Quin Lin
 	</div>
 </template>
 
