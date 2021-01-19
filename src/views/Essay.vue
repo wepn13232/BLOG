@@ -8,20 +8,22 @@
 </template>
 
 <script>
-	import markdown from '../docs/JavaScript.md'
+	const path = 'Vue项目性能加载优化';
+	import markdown from '@/docs/Vue项目性能加载优化.md';
 	import 'github-markdown-css/github-markdown.css'
 
 	export default {
 		name: "Essay",
 		components: {markdown},
 		data() {
-			return {}
+			return {
+				itemName: '', //文件名称
+			}
 		},
-		methods: {
-		
-		},
+		methods: {},
 		mounted() {
-			this.$store.commit('setActive',"1")
+			this.$store.commit('setActive', "1");
+			this.itemName = this.$route.params.item;
 		}
 	}
 </script>

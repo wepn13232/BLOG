@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Essay from "../views/Essay";
+import EssayLists from "@/views/EssayLists";
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ const routes = [
     name: 'Essay',
     component: Essay
   },
+	{
+		path: '/EssayLists',
+		name: 'EssayLists',
+		component: EssayLists
+	},
 ]
 
 const router = new VueRouter({

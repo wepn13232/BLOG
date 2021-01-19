@@ -26,6 +26,6 @@
 <style lang="scss">
 	.content {
 		margin-top: 56px;
-		background-color: #f9f9f9;
+		background-color: #f6f6f6;
 	}
 </style>
