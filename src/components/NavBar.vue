@@ -43,7 +43,7 @@
 						this.$router.push('/');
 						break;
 					case 1:
-						this.$router.push('/Essay');
+						this.$router.push('/EssayLists');
 						break;
 				}
 			},
