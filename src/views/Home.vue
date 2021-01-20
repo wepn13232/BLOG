@@ -1,6 +1,6 @@
 <template>
 	<div class="Home">
-		<div :class="['banner',`banner_color-${getBanner()}`]">
+		<div :class="['banner','RGBAnimation',`banner_color-${getBanner()}`]">
 			<div class="logo">
 				<img src="../assets/img/home_welcome.jpeg" class="logo_pic"/>
 			</div>
@@ -217,30 +217,49 @@
 		}
 	}
 	
-	
 	/*渐变色色板*/
 	.banner_color-1 {
 		background: #8e9eab; /* fallback for old browsers */
 		background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		background-size: 200% 200%;
+		animation: RGB 10s ease infinite;
 	}
 	
 	.banner_color-2 {
 		background: #1A2980; /* fallback for old browsers */
 		background: -webkit-linear-gradient(to right, #26D0CE, #1A2980); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #26D0CE, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		background-size: 200% 200%;
+		animation: RGB 10s ease infinite;
 	}
 	
 	.banner_color-3 {
 		background: #403B4A; /* fallback for old browsers */
 		background: -webkit-linear-gradient(to right, #E7E9BB, #403B4A); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #E7E9BB, #403B4A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		background-size: 200% 200%;
+		animation: RGB 10s ease infinite;
 	}
 	
 	.banner_color-4 {
 		background: #232526; /* fallback for old browsers */
 		background: -webkit-linear-gradient(to right, #414345, #232526); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		background-size: 200% 200%;
+		animation: RGB 10s ease infinite;
+	}
+	
+	@keyframes RGB {
+		0% {
+			background-position: 0 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0 50%;
+		}
 	}
 	
 	@import "../assets/css/global";
