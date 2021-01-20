@@ -63,7 +63,7 @@
 			<div class="content_intro intro--gray">
 				你可以在这里查看各类前端技术文章，包含前端基础、JavaScript、Vue等框架内容
 			</div>
-			<button type="button" class="btn btn-info">看看有什么文章</button>
+			<button type="button" class="btn btn-info" @click="toEssayLists">看看有什么文章</button>
 		</div>
 		<div class="home_content content--white">
 			<div class="content_title">这里有什么优势?</div>
@@ -81,13 +81,14 @@
 			<div class="content_intro intro--gray">
 				您可以阅读我的文档，了解这个地方是如何构建起来的，同时又是怎么运作的，并且我将提供源码作为参考
 			</div>
-			<button type="button" class="btn btn-info">如何打造这个博客</button>
+			<button type="button" class="btn btn-info" @click="toHow">如何打造这个博客</button>
 		</div>
 	</div>
 </template>
 
 <script>
 	import NavBar from "@/components/NavBar";
+	import commonFunc from "@/docs/config";
 
 	export default {
 		name: "Home",
@@ -110,6 +111,23 @@
 				// //监听
 				// this.listener = window.addEventListener('resize', function () {})
 			},
+			//跳转至文章列表
+			toEssayLists() {
+				this.$router.push('/EssayLists')
+			},
+			//跳转至网站文档说明
+			toHow() {
+				//获取包含"七元"关键字开发文档
+				const files = commonFunc.getFiles();
+				for (let i of files) {
+					if (i.indexOf("七元") > -1) {
+						//正则匹配获取文件名字
+						let fileName = i.match(/\.\/(\S*)\.md/)[1];
+						this.$router.push({name: 'Essay', params: {item: fileName}})
+						break;
+					}
+				}
+			}
 		},
 		mounted() {
 			this.$store.commit('setActive', "0")
@@ -223,7 +241,7 @@
 		background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		background-size: 200% 200%;
-		animation: RGB 10s ease infinite;
+		animation: RGB 7s ease infinite;
 	}
 	
 	.banner_color-2 {
@@ -231,7 +249,7 @@
 		background: -webkit-linear-gradient(to right, #26D0CE, #1A2980); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #26D0CE, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		background-size: 200% 200%;
-		animation: RGB 10s ease infinite;
+		animation: RGB 7s ease infinite;
 	}
 	
 	.banner_color-3 {
@@ -239,7 +257,7 @@
 		background: -webkit-linear-gradient(to right, #E7E9BB, #403B4A); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #E7E9BB, #403B4A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		background-size: 200% 200%;
-		animation: RGB 10s ease infinite;
+		animation: RGB 7s ease infinite;
 	}
 	
 	.banner_color-4 {
@@ -247,7 +265,7 @@
 		background: -webkit-linear-gradient(to right, #414345, #232526); /* Chrome 10-25, Safari 5.1-6 */
 		background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		background-size: 200% 200%;
-		animation: RGB 10s ease infinite;
+		animation: RGB 7s ease infinite;
 	}
 	
 	@keyframes RGB {

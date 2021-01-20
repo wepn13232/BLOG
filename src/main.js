@@ -8,6 +8,11 @@ import Highlight from './util/highlight'
 Vue.config.productionTip = false
 Vue.use(Highlight);
 
+//页面跳转 默认显示顶部
+router.afterEach((to, from, next) => {
+	window.scrollTo(0, 0)
+});
+
 new Vue({
   router,
   store,

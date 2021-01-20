@@ -29,6 +29,7 @@
 					let fileName = files[i].match(/\.\/(\S*)\.md/);
 					fileNameArr.push(fileName[1]);
 				}
+				//多量数据时加快性能，减少vue源码的get set
 				this.essayLists = Object.freeze(fileNameArr);
 			},
 			toEssay(item) {

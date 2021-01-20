@@ -41,11 +41,6 @@
 <style scoped lang="scss">
 	.Essay {
 		
-		.markdown_area {
-			width: 100%;
-			height: 800px;
-		}
-		
 		.markdown-body {
 			box-sizing: border-box;
 			min-width: 200px;

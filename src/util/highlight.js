@@ -1,6 +1,6 @@
 // highlight.js  代码高亮指令
 import Hljs from 'highlight.js';
-import 'highlight.js/styles/tomorrow-night.css'; // 代码高亮风格，选择更多风格需导入 node_modules/hightlight.js/styles/ 目录下其它css文件
+import 'highlight.js/styles/tomorrow.css'; // 代码高亮风格，选择更多风格需导入 node_modules/hightlight.js/styles/ 目录下其它css文件
 
 let Highlight = {};
 // 自定义插件

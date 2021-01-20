@@ -1,7 +1,7 @@
 <template>
 	<div class="NavBar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-			<a class="navbar-brand mb-0 h1" href="#">七元</a>
+			<a class="navbar-brand mb-0 h1" href="javascript:void(0)" @click="toPage(0)">七元</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 			        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+	import commonFunc from "@/docs/config";
+
 	export default {
 		name: "NavBar",
 		data() {
@@ -45,8 +47,23 @@
 					case 1:
 						this.$router.push('/EssayLists');
 						break;
+					case 2:
+						this.toHow();
+						break;
 				}
 			},
+			toHow() {
+				//获取包含"七元"关键字开发文档
+				const files = commonFunc.getFiles();
+				for (let i of files) {
+					if (i.indexOf("七元") > -1) {
+						//正则匹配获取文件名字
+						let fileName = i.match(/\.\/(\S*)\.md/)[1];
+						this.$router.push({name: 'Essay', params: {item: fileName}})
+						break;
+					}
+				}
+			}
 		},
 		watch: {
 			//修改导航栏
@@ -60,8 +77,9 @@
 
 <style scoped lang="scss">
 	@import "../assets/css/global";
-	.NavBar{
-		.navbar{
+	
+	.NavBar {
+		.navbar {
 			box-shadow: 0px 0px 5px 0px rgba(3, 3, 3, 0.15);
 		}
 	}
