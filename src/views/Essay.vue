@@ -9,7 +9,7 @@
 
 <script>
 	import commonFunc from "@/docs/config";
-	import markdown from '@/docs/Vue项目性能加载优化.md';
+	import markdown from '@/docs/知识类内容/Vue项目性能加载优化.md';
 	import 'github-markdown-css/github-markdown.css'
 
 	export default {
