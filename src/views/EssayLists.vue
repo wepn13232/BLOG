@@ -2,9 +2,10 @@
 	<!--文章列表-->
 	<div class="EssayLists accordion" id="accordionExample">
 		<!--目录结构-->
-		<div class="category_block" v-for="(cate,index) in cateLists" :key="index">
-			<div class="cate_title" data-toggle="collapse" :href="`#collapse-${index}`" aria-expanded="false"
-			     :aria-controls="`#collapse-${index}`" @click="getEssayLists(cate.name)">
+		<div class="category_block" v-for="(cate,index) in cateLists" :key="index" data-toggle="collapse"
+		     :href="`#collapse-${index}`" aria-expanded="false"
+		     :aria-controls="`#collapse-${index}`" @click="getEssayLists(cate.name,index)">
+			<div class="cate_title">
 				➡️　{{cate.name}}
 			</div>
 			<!--内容折叠块-->
@@ -12,20 +13,13 @@
 				<div class="cate_content">
 					<!--具体的内容区域（文章或子目录）-->
 					<div class="list-group">
-						<a href="javascript:void(0)" class="list-group-item list-group-item-action">Cras justo odio</a>
-						<a href="javascript:void(0)" class="list-group-item list-group-item-action">Cras justo odio</a>
-						<a href="javascript:void(0)" class="list-group-item list-group-item-action">Cras justo odio</a>
-						<a href="javascript:void(0)" class="list-group-item list-group-item-action">Cras justo odio</a>
+						<a href="javascript:void(0)" class="list-group-item list-group-item-action"
+						   v-for="(lists,l_index) in cate.filesLists" :key="l_index"
+						   @click="toEssay(lists.fileName,lists.filePath)">{{lists.fileName}}</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--文章组件-->
-		<!--<div class="lists_block" v-for="(item,index) in essayLists" :key="index" @click="toEssay(item)">-->
-		<!--	<div class="block_title">-->
-		<!--		{{item}}-->
-		<!--	</div>-->
-		<!--</div>-->
 	</div>
 </template>
 
@@ -43,26 +37,55 @@
 		},
 		methods: {
 			//获取目录下文件
-			getEssayLists(cateName) {
-				// console.log(name)
-				let files = commonFunc.getFiles(cateName);
-				console.log(files)
-				// const fileNameArr = [];
-				// for (let i in files) {
-				// 	//正则匹配获取文件名字
-				// 	let fileName = files[i].match(/\.\/(\S*)\.md/);
-				// 	fileNameArr.push(fileName[1]);
-				// }
-				// //多量数据时加快性能，减少vue源码的get set
-				// this.essayLists = Object.freeze(fileNameArr);
+			getEssayLists(cateName, index) {
+				//如果已经获取过目录下文件，就不再请求
+				if (this.cateLists[index].filesLists.length > 0) return false;
+				console.log('请求目录下文件')
+				let files = commonFunc.getFiles();
+				/**
+				 * 遍历files 匹配点击的目录(filesArr)名称，将具体的文件添加进相对应的目录里面
+				 * */
+				let filesArr = files.keys();
+				for (let i in filesArr) {
+					//进行目录切割
+					let lastIndex = filesArr[i].lastIndexOf('/');
+					let startIndex = filesArr[i].indexOf('/');
+					let path = filesArr[i].substring(startIndex + 1, lastIndex);
+					//如果点击的目录名称和文件的路径目录对应,存放到对应的目录下
+					if (path === cateName) {
+						for (let j in this.cateLists) {
+							if (this.cateLists[j].name === cateName) {
+								//获取文件名字
+								let fileName = filesArr[i].substring(lastIndex + 1, filesArr[i].length - 3);
+								let fileObj = {
+									fileName: fileName,
+									filePath: filesArr[i]
+								}
+								this.cateLists[j].filesLists.push(fileObj)
+							}
+						}
+					}
+				}
 			},
 			//获取目录结构
 			getCategory() {
 				const cate = commonFunc.getCategory();
-				this.cateLists = Object.freeze(cate);
+				//每一个目录下添加文件列表数组
+				this.addFilesLists(cate);
+				this.cateLists = cate;
 			},
-			toEssay(item) {
-				this.$router.push({name: 'Essay', params: {item}})
+			//针对每个目录都添加一个文件数组
+			addFilesLists(category) {
+				for (let i of category) {
+					i.filesLists = [];
+					//如果还存在子目录的情况下
+					if (i.item.length > 0) {
+						this.addFilesLists(i.item)
+					}
+				}
+			},
+			toEssay(fileName,filePath) {
+				this.$router.push({name: 'Essay', params: {fileName,filePath}})
 			}
 		},
 		mounted() {

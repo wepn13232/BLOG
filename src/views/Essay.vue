@@ -9,26 +9,20 @@
 
 <script>
 	import commonFunc from "@/docs/config";
-	import markdown from '@/docs/知识类内容/Vue项目性能加载优化.md';
 	import 'github-markdown-css/github-markdown.css'
 
 	export default {
 		name: "Essay",
-		components: {markdown},
+		components: {},
 		data() {
 			return {
-				itemName: '', //文件名称
 				path: null
-
 			}
 		},
 		methods: {
 			//动态获取md文件
 			getMarkDownFile() {
-				this.itemName = this.$route.params.item;
-				this.$nextTick(() => {
-					this.path = commonFunc.getComponent(this.itemName)
-				})
+				this.path = commonFunc.getComponent(this.$route.params.filePath)
 			}
 		},
 		mounted() {
