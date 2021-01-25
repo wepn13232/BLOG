@@ -55,11 +55,10 @@
 			toHow() {
 				//获取包含"七元"关键字开发文档
 				const files = commonFunc.getFiles();
-				for (let i of files) {
-					if (i.indexOf("七元") > -1) {
-						//正则匹配获取文件名字
-						let fileName = i.match(/\.\/(\S*)\.md/)[1];
-						this.$router.push({name: 'Essay', params: {item: fileName}})
+				let fileName;
+				for (let filePath of files.keys()) {
+					if (filePath.indexOf("七元") > -1) {
+						this.$router.push({name: 'Essay', params: {fileName, filePath}})
 						break;
 					}
 				}

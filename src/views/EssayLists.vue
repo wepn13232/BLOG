@@ -1,37 +1,20 @@
 <template>
-	<!--文章列表-->
-	<div class="EssayLists accordion" id="accordionExample">
-		<!--目录结构-->
-		<div class="category_block" v-for="(cate,index) in cateLists" :key="index" data-toggle="collapse"
-		     :href="`#collapse-${index}`" aria-expanded="false"
-		     :aria-controls="`#collapse-${index}`" @click="getEssayLists(cate.name,index)">
-			<div class="cate_title">
-				➡️　{{cate.name}}
-			</div>
-			<!--内容折叠块-->
-			<div class="collapse multi-collapse" :id="`collapse-${index}`" data-parent="#accordionExample">
-				<div class="cate_content">
-					<!--具体的内容区域（文章或子目录）-->
-					<div class="list-group">
-						<a href="javascript:void(0)" class="list-group-item list-group-item-action"
-						   v-for="(lists,l_index) in cate.filesLists" :key="l_index"
-						   @click="toEssay(lists.fileName,lists.filePath)">{{lists.fileName}}</a>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="EssayLists">
+		<menu-lists :cateLists="cateLists" @getEssayLists="getEssayLists"></menu-lists>
 	</div>
+
 </template>
 
 <script>
 	import commonFunc from '@/docs/config';
 	import category from "@/docs/category";
+	import MenuLists from "@/components/MenuLists";
 
 	export default {
 		name: "EssayLists",
+		components: {MenuLists},
 		data() {
 			return {
-				essayLists: [], //md文章列表
 				cateLists: [], //目录列表
 			}
 		},
@@ -61,7 +44,7 @@
 									fileName: fileName,
 									filePath: filesArr[i]
 								}
-								this.cateLists[j].filesLists.push(fileObj)
+								this.cateLists[j].filesLists.push(fileObj);
 							}
 						}
 					}
@@ -84,9 +67,6 @@
 					}
 				}
 			},
-			toEssay(fileName,filePath) {
-				this.$router.push({name: 'Essay', params: {fileName,filePath}})
-			}
 		},
 		mounted() {
 			this.getCategory()
@@ -96,42 +76,7 @@
 
 <style scoped lang="scss">
 	.EssayLists {
-		padding: 3rem 1rem;
-		
-		.category_block {
-			width: 90%;
-			margin: 1rem auto;
-			padding: 1rem;
-			background-color: #fbfbfb;
-			cursor: pointer;
-			border-radius: 10px;
-			transition: all ease 0.3s;
-			-webkit-transition: all ease 0.3s;
-			-o-transition: all ease 0.3s;
-			-moz-transition: all ease 0.3s;
-			
-			.cate_title {
-				font-size: 1rem;
-				letter-spacing: 0.1rem;
-				font-weight: 600;
-			}
-			
-			.cate_content {
-				padding-top: 1rem;
-			}
-			
-			&:hover {
-				box-shadow: 0 1px 4px 0 rgba(18, 18, 18, 0.07);
-			}
-		}
-		
-		.lists_block {
-			width: 80%;
-			padding: 3rem;
-			margin: 1rem auto;
-			background-color: #fbfbfb;
-			box-shadow: 0 2px 7px 0 rgba(3, 3, 3, 0.07);
-			cursor: pointer;
-		}
+		padding: 1rem 3rem;
 	}
+
 </style>
