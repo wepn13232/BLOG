@@ -1,6 +1,9 @@
 <template>
 	<div class="EssayLists">
 		<menu-lists :cateLists="cateLists" @getEssayLists="getEssayLists"></menu-lists>
+		<!--<Collapse></Collapse>-->
+		<!--<br/>-->
+		<!--<Collapse></Collapse>-->
 	</div>
 
 </template>
@@ -9,10 +12,11 @@
 	import commonFunc from '@/docs/config';
 	import category from "@/docs/category";
 	import MenuLists from "@/components/MenuLists";
+	import Collapse from "@/components/Collapse";
 
 	export default {
 		name: "EssayLists",
-		components: {MenuLists},
+		components: {Collapse, MenuLists},
 		data() {
 			return {
 				cateLists: [], //目录列表
