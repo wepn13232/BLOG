@@ -1,14 +1,12 @@
 <template>
 	<!--折叠组件-->
-	<div class="Collapse">
-		<div class="block" @click="clickCollapse($event)" ref="block">
-			我是可点击区域
-			<!--slot内容区域-->
-			<div class="slot" slot="block_content" ref="block_content" v-if="showContent">
-				<div class="inside_content">
-					我是里面的内容
-				</div>
-			</div>
+	<div class="category_block" @click="clickCollapse($event)" ref="block">
+		<div class="cate_title" id="cate_title">
+			➡️ {{categoryName}}
+		</div>
+		<!--slot内容区域-->
+		<div class="slot" ref="block_content" v-if="showContent">
+			<slot name="slot_content"></slot>
 		</div>
 	</div>
 </template>
@@ -16,6 +14,7 @@
 <script>
 	export default {
 		name: "Collapse",
+		props: ["categoryName"],
 		data() {
 			return {
 				initHeight: 0, //块初始高度
@@ -33,12 +32,16 @@
 			},
 			//点击折叠区域
 			clickCollapse(e) {
+				let son_dom = e.currentTarget.getElementsByClassName('cate_title')[0];
 				//判断是否点击了此元素
-				if (e.currentTarget === e.target) {
+				if (e.currentTarget === e.target || son_dom === e.target) {
 					this.showContent = !this.showContent;
 					this.$nextTick(() => {
 						let block_content = this.$refs.block_content;
-						e.currentTarget.style.height = this.showContent ? block_content.clientHeight + this.initHeight + 'px' : this.initHeight + 'px';
+						let _e_currTarget = e.currentTarget;
+						setTimeout(() => {
+							_e_currTarget.style.height = this.showContent ? block_content.clientHeight + this.initHeight + 'px' : this.initHeight + 'px';
+						}, 0)
 					})
 				}
 			},
@@ -50,32 +53,40 @@
 </script>
 
 <style scoped lang="scss">
-	.Collapse {
-		.block {
-			width: 100%;
-			background-color: #4d4d4c;
-			padding: 1rem;
-			cursor: pointer;
-			transition: all 0.3s ease-in-out;
-			-webkit-transition: all 0.3s ease-in-out;
-			-moz-transition: all 0.3s ease-in-out;
-			-o-transition: all 0.3s ease-in-out;
-			overflow: hidden;
-			
-			.slot {
-				padding: 2rem;
-			}
-			
-			.inside_content {
-				width: 100%;
-				height: 5rem;
-				background-color: #26D0CE;
-				cursor: initial;
-				transition: all 0.3s ease-in-out;
-				-webkit-transition: all 0.3s ease-in-out;
-				-moz-transition: all 0.3s ease-in-out;
-				-o-transition: all 0.3s ease-in-out;
-			}
+	.category_block {
+		width: 95%;
+		margin: 1rem auto;
+		padding: 1rem;
+		background-color: #fbfbfb;
+		cursor: pointer;
+		border-radius: 10px;
+		overflow: hidden;
+		transition: all ease 0.3s;
+		-webkit-transition: all ease 0.3s;
+		-o-transition: all ease 0.3s;
+		-moz-transition: all ease 0.3s;
+		
+		.cate_title {
+			font-size: 1rem;
+			letter-spacing: 0.1rem;
+			font-weight: 600;
 		}
+		
+		.slot {
+			cursor: initial;
+		}
+		
+		&:hover {
+			box-shadow: 0 1px 4px 0 rgba(18, 18, 18, 0.07);
+		}
+	}
+	
+	.lists_block {
+		width: 80%;
+		padding: 3rem;
+		margin: 1rem auto;
+		background-color: #fbfbfb;
+		box-shadow: 0 2px 7px 0 rgba(3, 3, 3, 0.07);
+		cursor: pointer;
 	}
 </style>

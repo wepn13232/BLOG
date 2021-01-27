@@ -1,9 +1,6 @@
 <template>
 	<div class="EssayLists">
 		<menu-lists :cateLists="cateLists" @getEssayLists="getEssayLists"></menu-lists>
-		<!--<Collapse></Collapse>-->
-		<!--<br/>-->
-		<!--<Collapse></Collapse>-->
 	</div>
 
 </template>
