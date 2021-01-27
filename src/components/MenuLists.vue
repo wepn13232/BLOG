@@ -2,7 +2,7 @@
 	<!--文件目录菜单-->
 	<div class="Menu">
 		<!--目录结构-->
-		<div v-for="(cate,index) in cateLists" :key="index" @click="getEssayLists(cate.name,index)">
+		<div v-for="(cate,index) in cateLists" :key="index" @click.stop="getEssayLists(cate.name,index)">
 			<Collapse :categoryName="cate.name">
 				<div slot="slot_content">
 					<!--内容折叠块-->
@@ -14,10 +14,10 @@
 							   @click="toEssay(lists.fileName,lists.filePath)">{{lists.fileName}}</a>
 						</div>
 					</div>
-					<!--&lt;!&ndash;如果还存在目录的情况下&ndash;&gt;-->
-					<!--<div v-if="cate.item.length > 0">-->
-					<!--	<menu-lists :cateLists="cate.item"></menu-lists>-->
-					<!--</div>-->
+					<!--如果还存在目录的情况下-->
+					<div v-if="cate.item.length > 0">
+						<menu-lists :cateLists="cate.item"></menu-lists>
+					</div>
 				</div>
 			</Collapse>
 		</div>
