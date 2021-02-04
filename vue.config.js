@@ -2,6 +2,7 @@ module.exports = {
     //请求代理
     devServer: {},
     lintOnSave: false,
+	parallel: false,
     chainWebpack: config => {
         config.module.rule('md')
             .test(/\.md/)
