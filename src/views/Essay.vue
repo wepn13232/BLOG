@@ -33,6 +33,8 @@
 </script>
 
 <style scoped lang="scss">
+	@import "../assets/css/global";
+	
 	.Essay {
 		
 		.markdown-body {
@@ -47,6 +49,10 @@
 			.markdown-body {
 				padding: 15px;
 			}
+		}
+		
+		.bg_color_hbuilder {
+			background-color: #fffae7 !important;
 		}
 	}
 </style>
