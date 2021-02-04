@@ -17,5 +17,6 @@
 
 > 如果你喜欢，赞助一杯咖啡吧 呜呜呜😭😭
 >
-> AliPay：<img src="../../assets/img/Alipay.jpg" style="width:100px;height:100px"/>     WeChat：<img src="../../assets/img/WechatPay.jpg" style="width:100px;height:100px"/>
+> AliPay：<div>![](../../assets/img/Alipay.jpg)</div>      WeChat：<img src="../../assets/img/WechatPay.jpg" style="width:100px;height:100px"/>
+
 
