@@ -77,6 +77,7 @@
 
 <style scoped lang="scss">
 	.EssayLists {
+		min-height: calc(100vh - 120px);
 		padding: 1rem 3rem;
 	}
 
