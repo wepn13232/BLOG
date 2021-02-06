@@ -5,7 +5,7 @@
 			<a href="javascript:void(0)" class="list-group-item list-group-item-action"
 			   v-for="(item,index) in match_files"
 			   :key="index">
-				<span v-html="item"></span>
+				<span v-html="item.fileName"></span>
 			</a>
 		</div>
 	</div>
@@ -32,7 +32,11 @@
 					if (i.lastIndexOf(this.searchValue) !== -1) {
 						let files_arr = i.split('/');
 						if (files_arr[files_arr.length - 1].indexOf(this.searchValue) !== -1) {
-							this.match_files.push(files_arr[files_arr.length - 1]); //只存文件名
+							let file_obj = {
+								fileName: files_arr[files_arr.length - 1],
+								filePath: i,
+							}
+							this.match_files.push(file_obj);
 						}
 					}
 				}
