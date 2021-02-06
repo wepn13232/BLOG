@@ -4,8 +4,8 @@
 		<div class="list-group">
 			<a href="javascript:void(0)" class="list-group-item list-group-item-action"
 			   v-for="(item,index) in match_files"
-			   :key="index">
-				<span v-html="item.fileName"></span>
+			   :key="index" @click="toEssay(item.fileName,item.filePath)">
+				<span v-html="item.fileHighLight"></span>
 			</a>
 		</div>
 	</div>
@@ -30,16 +30,54 @@
 				//获取匹配内容的文件
 				for (let i of ALL_FILES) {
 					if (i.lastIndexOf(this.searchValue) !== -1) {
+						//拆分路径，只匹配最后一个具体的文件名
 						let files_arr = i.split('/');
 						if (files_arr[files_arr.length - 1].indexOf(this.searchValue) !== -1) {
+							let full_fileName = files_arr[files_arr.length - 1];
+							//切割文件名的.md后缀
+							let fileName = files_arr[files_arr.length - 1].substring(0, full_fileName.length - 3);
+							//对匹配文字进行高亮展示
+							let fileHighLight = this.setHighLight(fileName);
 							let file_obj = {
-								fileName: files_arr[files_arr.length - 1],
+								fileName: fileName,
 								filePath: i,
+								fileHighLight: fileHighLight
 							}
 							this.match_files.push(file_obj);
 						}
 					}
 				}
+				console.log('匹配到的内容是', this.match_files)
+			},
+			//跳转至具体的文章
+			toEssay(fileName, filePath) {
+				this.$router.push({name: 'Essay', params: {fileName, filePath}})
+			},
+			//设置匹配文字高亮展示
+			setHighLight(fileName) {
+				if (!fileName || fileName === '') return; //空搜索不进行高亮匹配
+				let map_index = 0; //开始遍历的位置
+				let font_length = this.searchValue.length;
+				let fileName_length = fileName.length;
+				let highLight_font = `<span style="color:#dd4b39">${this.searchValue}</span>`;
+				let final_p = "";
+				while (map_index < fileName_length) {
+					let start_index = fileName.indexOf(this.searchValue);
+					//如果匹配到了
+					if (start_index > -1) {
+						//切割原有的两个文字，并添加高亮文字
+						let p_1 = fileName.substr(map_index, start_index); //前段文字
+						let p_2 = fileName.substr(start_index + font_length, fileName.length - 1); //后段文字
+						final_p = p_1 + highLight_font + p_2; //拼接最终文字样式
+						map_index = start_index + font_length; //从切割文字后开始重新遍历
+						fileName = fileName.substr(map_index, fileName_length); //重新截取剩余的片段
+					} else {
+						//把剩余的文字拼接上去
+						final_p += fileName.substr(map_index, fileName.length - 1);
+						map_index = fileName_length;
+					}
+				}
+				return final_p;
 			}
 		},
 		mounted() {

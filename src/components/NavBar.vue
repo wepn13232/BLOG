@@ -54,7 +54,8 @@
 						this.toHow();
 						break;
 				}
-				this.$refs['navbar-toggler'].click();
+				//针对移动端导航栏选择后关闭导航栏
+				if (this.$refs['navbar-toggler'].offsetHeight !== 0) this.$refs['navbar-toggler'].click();
 			},
 			toHow() {
 				//获取包含"七元"关键字开发文档
@@ -69,7 +70,7 @@
 			},
 			//文章搜索（支持模糊搜索）
 			search() {
-				this.$router.push({path:'/SearchLists',query:{searchValue:this.searchValue}})
+				this.$router.push({path: '/SearchLists', query: {searchValue: this.searchValue}})
 			}
 		},
 		watch: {
