@@ -36,7 +36,7 @@
 	@import "../assets/css/global";
 	
 	.Essay {
-		
+		min-height: calc(100vh - 120px);
 		.markdown-body {
 			box-sizing: border-box;
 			min-width: 200px;
