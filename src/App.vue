@@ -27,5 +27,6 @@
 	.content {
 		margin-top: 56px;
 		background-color: #f6f6f6;
+		min-height: calc(100vh - 120px);
 	}
 </style>
