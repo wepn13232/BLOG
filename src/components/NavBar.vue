@@ -22,7 +22,7 @@
 				</ul>
 				<div class="flex">
 					<input class="form-control mr-sm-2" type="search" placeholder="搜索" aria-label="Search"
-					       v-model="searchValue">
+					       v-model.trim="searchValue">
 					<button class="btn btn-outline-success my-2 my-sm-0" @click="search">搜索</button>
 				</div>
 			</div>
@@ -70,6 +70,10 @@
 			},
 			//文章搜索（支持模糊搜索）
 			search() {
+				if (!this.searchValue) {
+					alert("请输入内容！");
+					return false;
+				}
 				this.$router.push({path: '/SearchLists', query: {searchValue: this.searchValue}})
 			}
 		},

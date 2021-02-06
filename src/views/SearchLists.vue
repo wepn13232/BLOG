@@ -1,12 +1,15 @@
 <template>
 	<!--搜索内容-->
 	<div class="SearchLists">
-		<div class="list-group">
+		<div class="list-group" v-if="match_files.length > 0">
 			<a href="javascript:void(0)" class="list-group-item list-group-item-action"
 			   v-for="(item,index) in match_files"
 			   :key="index" @click="toEssay(item.fileName,item.filePath)">
 				<span v-html="item.fileHighLight"></span>
 			</a>
+		</div>
+		<div class="no_content" v-else>
+			暂无内容~
 		</div>
 	</div>
 </template>
@@ -25,6 +28,10 @@
 		methods: {
 			//根据输入的内容来获取新列表
 			getEssayBySerach() {
+				if (!this.searchValue) {
+					alert("请输入内容！");
+					return false;
+				}
 				this.match_files = [];
 				const ALL_FILES = commonFunc.getFiles().keys();
 				//获取匹配内容的文件
@@ -47,7 +54,6 @@
 						}
 					}
 				}
-				console.log('匹配到的内容是', this.match_files)
 			},
 			//跳转至具体的文章
 			toEssay(fileName, filePath) {
@@ -72,9 +78,7 @@
 						map_index = start_index + font_length; //从切割文字后开始重新遍历
 						fileName = fileName.substr(map_index, fileName_length); //重新截取剩余的片段
 					} else {
-						//把剩余的文字拼接上去
-						final_p += fileName.substr(map_index, fileName.length - 1);
-						map_index = fileName_length;
+						break;
 					}
 				}
 				return final_p;
@@ -101,5 +105,10 @@
 <style scoped lang="scss">
 	.SearchLists {
 		padding: 3rem;
+		
+		.no_content {
+			color: #4d4d4c;
+			text-align: center;
+		}
 	}
 </style>
