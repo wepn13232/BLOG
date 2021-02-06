@@ -74,6 +74,8 @@
 					alert("请输入内容！");
 					return false;
 				}
+				//针对移动端导航栏选择后关闭导航栏
+				if (this.$refs['navbar-toggler'].offsetHeight !== 0) this.$refs['navbar-toggler'].click();
 				this.$router.push({path: '/SearchLists', query: {searchValue: this.searchValue}})
 			}
 		},
