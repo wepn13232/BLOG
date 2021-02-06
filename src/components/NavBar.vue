@@ -3,7 +3,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 			<a class="navbar-brand mb-0 h1" href="javascript:void(0)" @click="toPage(0)">七元</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref="navbar-toggler">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			
@@ -51,6 +51,7 @@
 						this.toHow();
 						break;
 				}
+				this.$refs['navbar-toggler'].click();
 			},
 			toHow() {
 				//获取包含"七元"关键字开发文档
