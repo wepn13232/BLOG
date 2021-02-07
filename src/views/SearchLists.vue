@@ -44,7 +44,7 @@
 							//切割文件名的.md后缀
 							let fileName = files_arr[files_arr.length - 1].substring(0, full_fileName.length - 3);
 							//对匹配文字进行高亮展示
-							let fileHighLight = this.setHighLight(fileName);
+							let fileHighLight = this.setHighLight(fileName, this.searchValue);
 							let file_obj = {
 								fileName: fileName,
 								filePath: i,
@@ -60,15 +60,15 @@
 				this.$router.push({name: 'Essay', params: {fileName, filePath}})
 			},
 			//设置匹配文字高亮展示
-			setHighLight(fileName) {
+			setHighLight(fileName, keyWord) {
 				if (!fileName || fileName === '') return; //空搜索不进行高亮匹配
 				let map_index = 0; //开始遍历的位置
-				let font_length = this.searchValue.length;
+				let font_length = keyWord.length;
 				let fileName_length = fileName.length;
-				let highLight_font = `<span style="color:#dd4b39">${this.searchValue}</span>`;
+				let highLight_font = `<span style="color:#dd4b39">${keyWord}</span>`;
 				let final_p = "";
 				while (map_index <= fileName_length) {
-					let start_index = fileName.indexOf(this.searchValue);
+					let start_index = fileName.indexOf(keyWord);
 					//如果匹配到了
 					if (start_index > -1) {
 						//切割原有的两个文字，并添加高亮文字
