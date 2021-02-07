@@ -67,17 +67,17 @@
 				let fileName_length = fileName.length;
 				let highLight_font = `<span style="color:#dd4b39">${this.searchValue}</span>`;
 				let final_p = "";
-				while (map_index < fileName_length) {
+				while (map_index <= fileName_length) {
 					let start_index = fileName.indexOf(this.searchValue);
 					//如果匹配到了
 					if (start_index > -1) {
 						//切割原有的两个文字，并添加高亮文字
-						let p_1 = fileName.substr(map_index, start_index); //前段文字
-						let p_2 = fileName.substr(start_index + font_length, fileName.length - 1); //后段文字
-						final_p = p_1 + highLight_font + p_2; //拼接最终文字样式
+						let p_1 = fileName.substr(0, start_index); //前段文字
+						final_p += p_1 + highLight_font; //拼接文字样式
 						map_index = start_index + font_length; //从切割文字后开始重新遍历
 						fileName = fileName.substr(map_index, fileName_length); //重新截取剩余的片段
 					} else {
+						final_p += fileName; //拼接最后的后段文字
 						break;
 					}
 				}
